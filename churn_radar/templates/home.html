@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Churn Radar — spot at-risk customers before they leave{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">CUSTOMER CHURN INTELLIGENCE</p>
+  <h1>Watch your customer base <span class="accent-safe">stay</span>, catch who's about to <span class="accent-risk">leave</span>.</h1>
+  <p class="lede">Churn Radar scans individual accounts for churn risk and rolls the whole base up into a live ops dashboard — built on the IBM Telco Customer Churn dataset, ~7,000 real subscriber records.</p>
+
+  <div class="hero-actions">
+    <a href="{{ url_for('predict_page') }}" class="glow-btn glow-btn--risk">
+      <span class="btn-live"></span> Scan a Customer
+    </a>
+    <a href="{{ url_for('dashboard_page') }}" class="glow-btn glow-btn--sm glow-btn--ghost" style="padding:16px 28px; font-size:14px;">
+      Open Ops Dashboard
+    </a>
+  </div>
+
+  <div class="hero-readout">
+    <div class="readout-cell">
+      <div class="num">7,043</div>
+      <div class="lbl">Customers modeled</div>
+    </div>
+    <div class="readout-cell">
+      <div class="num">26.5%</div>
+      <div class="lbl">Base churn rate</div>
+    </div>
+    <div class="readout-cell">
+      <div class="num">0.854</div>
+      <div class="lbl">Model ROC-AUC</div>
+    </div>
+    <div class="readout-cell">
+      <div class="num">Gradient Boost</div>
+      <div class="lbl">Active model</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">TWO ROUTES</p>
+    <h2>Zoom into one account, or scan the whole base</h2>
+    <p>Both routes run off the same trained model and dataset — pick the altitude you need.</p>
+  </div>
+  <div class="route-grid">
+    <a href="{{ url_for('predict_page') }}" class="route-card panel risk">
+      <span class="route-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M21 12h-3M12 21v-3M3 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <h3>Scan a customer</h3>
+      <p>Enter one account's plan, billing, and tenure details. Get a churn probability, a risk band, and the factors driving it — with a live 3D view of where they sit among real customers.</p>
+      <span class="route-cta">Run a scan →</span>
+    </a>
+    <a href="{{ url_for('dashboard_page') }}" class="route-card panel safe">
+      <span class="route-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19V10M12 19V5M20 19v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <h3>Ops dashboard</h3>
+      <p>Filter the full base by contract, internet service, and demographics. Churn rate, tenure, and revenue readouts update instantly as you narrow the view.</p>
+      <span class="route-cta">Open dashboard →</span>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">HOW A SCAN WORKS</p>
+    <h2>From account details to a risk verdict</h2>
+  </div>
+  <div class="how-list panel" style="padding: 8px 22px;">
+    <div class="how-row">
+      <span class="how-tag">INPUT</span>
+      <div><h4>Account details</h4><p>Contract type, tenure, billing method, and the services the customer has active.</p></div>
+    </div>
+    <div class="how-row">
+      <span class="how-tag">MODEL</span>
+      <div><h4>Gradient Boosting classifier</h4><p>Trained and cross-validated on 7,043 historical accounts; selected over logistic regression and random forest on held-out ROC-AUC.</p></div>
+    </div>
+    <div class="how-row">
+      <span class="how-tag">OUTPUT</span>
+      <div><h4>Probability + risk band</h4><p>A churn probability from 0–100%, bucketed into stable / watch / elevated / critical, plus the top factors behind the score.</p></div>
+    </div>
+    <div class="how-row">
+      <span class="how-tag">CONTEXT</span>
+      <div><h4>Where they sit in the base</h4><p>The 3D orbit view places the account among a sample of real customers by tenure, monthly charges, and total spend.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

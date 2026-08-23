@@ -1,0 +1,47 @@
+{
+  "best_model": "Gradient Boosting",
+  "best_params": {
+    "n_estimators": 200,
+    "max_depth": 3,
+    "learning_rate": 0.03
+  },
+  "comparison": [
+    {
+      "model": "Gradient Boosting",
+      "cv_roc_auc": 0.8635
+    },
+    {
+      "model": "Logistic Regression",
+      "cv_roc_auc": 0.8589
+    },
+    {
+      "model": "Random Forest",
+      "cv_roc_auc": 0.8586
+    },
+    {
+      "model": "Hist Gradient Boosting",
+      "cv_roc_auc": 0.8539
+    }
+  ],
+  "test_metrics": {
+    "accuracy": 80.48,
+    "roc_auc": 0.8544,
+    "precision_churn": 0.6656,
+    "recall_churn": 0.5321,
+    "f1_churn": 0.5914,
+    "confusion_matrix": [
+      [
+        935,
+        100
+      ],
+      [
+        175,
+        199
+      ]
+    ],
+    "train_samples": 5634,
+    "test_samples": 1409,
+    "total_samples": 7043,
+    "churn_rate_pct": 26.54
+  }
+}

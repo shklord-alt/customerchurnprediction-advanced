@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Ops Dashboard — Churn Radar{% endblock %}
+{% block body_class %}page-dashboard{% endblock %}
+
+{% block content %}
+<div class="dash-head">
+  <div>
+    <p class="eyebrow">FLEET-WIDE VIEW</p>
+    <h1>Ops Dashboard</h1>
+    <p>Filter the base and watch every readout update live.</p>
+  </div>
+</div>
+
+<div class="filter-bar panel">
+  <select id="filter-contract"><option value="all">All contracts</option></select>
+  <select id="filter-internet"><option value="all">All internet service</option></select>
+  <select id="filter-gender"><option value="all">All genders</option></select>
+  <select id="filter-senior"><option value="all">Senior citizen: all</option></select>
+  <button class="ghost-btn" id="filter-reset">Reset</button>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi-card panel"><div class="lbl">Customers in view</div><div class="val" id="kpi-total">—</div></div>
+  <div class="kpi-card panel"><div class="lbl">Churn rate</div><div class="val risk" id="kpi-rate">—</div></div>
+  <div class="kpi-card panel"><div class="lbl">Avg. tenure</div><div class="val" id="kpi-tenure">—</div></div>
+  <div class="kpi-card panel"><div class="lbl">Avg. monthly charge</div><div class="val safe" id="kpi-monthly">—</div></div>
+</div>
+
+<div class="chart-grid">
+  <div class="chart-card panel">
+    <h4>Churn rate by tenure bucket</h4>
+    <p class="chart-sub">Newer accounts (0–6mo) are consistently the highest-risk band.</p>
+    <canvas id="chart-tenure"></canvas>
+  </div>
+  <div class="chart-card panel">
+    <h4>Base split</h4>
+    <p class="chart-sub">Stayed vs. churned, in view</p>
+    <canvas id="chart-split"></canvas>
+  </div>
+</div>
+
+<div class="chart-grid">
+  <div class="chart-card panel">
+    <h4>Churn rate by contract type</h4>
+    <canvas id="chart-contract"></canvas>
+  </div>
+  <div class="chart-card panel">
+    <h4>Churn rate by payment method</h4>
+    <canvas id="chart-payment"></canvas>
+  </div>
+</div>
+
+<div class="model-strip panel">
+  <span>Active model: <b>{{ metrics.best_model }}</b></span>
+  <span>Test ROC-AUC: <b>{{ '%.3f'|format(metrics.test_metrics.roc_auc) }}</b></span>
+  <span>Test accuracy: <b>{{ metrics.test_metrics.accuracy }}%</b></span>
+  <span>Precision (churn): <b>{{ '%.2f'|format(metrics.test_metrics.precision_churn) }}</b></span>
+  <span>Recall (churn): <b>{{ '%.2f'|format(metrics.test_metrics.recall_churn) }}</b></span>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
